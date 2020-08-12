@@ -1,5 +1,17 @@
 <template>
   <div class="orders">
-    <h1>This orders page</h1>
+    <CreateOrder msg="Orders Page" />
   </div>
 </template>
+
+<script>
+// @ is an alias to /src
+import CreateOrder from "@/components/CreateOrder.vue";
+
+export default {
+  name: "Home",
+  components: {
+    CreateOrder
+  }
+};
+</script>
