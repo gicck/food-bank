@@ -1,5 +1,5 @@
 <template>
-  <div class="orders">
+  <div class="order sp-12 shadow-xl mt-12 bg-white max-w-sm mx-auto text-left">    
     <CreateOrder msg="Orders Page" />
   </div>
 </template>
