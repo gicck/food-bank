@@ -30,8 +30,10 @@
       </ul>
     </nav>
 
-    <main>
-      <router-view />
+    <main class="h-full overflow-y-auto">
+      <div class="container px-6 mx-auto grid">
+        <router-view />
+      </div>
     </main>
   </div>
 </template>
