@@ -1,118 +1,105 @@
 <template>
-  <FormulateForm 
-    :schema="schema"
-    :form-errors="['Sorry, an unexpected error ocurred. Please try again soon.']"/>
+  <FormulateForm v-model="values" @submit="handleOrderSubmit">
+    <FormulateInput 
+      type="text" 
+      name="orderId" 
+      label="Id Orden" 
+      validation="^required"
+      :validation-messages="{
+        required: 'Este campo es requerido',
+      }"
+      placeholder="OE-"
+      help="El ID de la Orden (ej. OE-14414)"/>
+    <FormulateInput 
+      type="text" 
+      name="employeeName" 
+      label="Delegado del Banco" 
+      validation="required"
+      :validation-messages="{
+        required: 'Este campo es requerido'
+      }"
+      help="Voluntario a cargo de la orden"/>
+    <FormulateInput 
+      type="select"
+      name="entityName"
+      label="Entidad Beneficiada" 
+      validation="required"
+      placeholder="Selecciona una entidad de apoyo"
+       :options="{ 
+        sanRafael: 'Hogar de Ninos San Rafael - 50 beneficiarios', 
+        aldeasSos: 'Aldeas S.O.S. - 150 beneficiarios', 
+        patitasDescalzas: 'Albergue Comunitario Patitas Descalzas - 70 beneficiarios'}"/>
+    <FormulateInput 
+      type="text" 
+      name="entityEmployeeName" 
+      label="Nombre Encargado" 
+      validation="required"
+      help="Nombre del encargado de la entidad beneficiaria"/>
+    <FormulateInput 
+      type="text" 
+      name="entityEmployeePhone" 
+      label="Telefono Encargado" 
+      inputmode="numeric"
+      pattern="[0-9]*"
+      validation="matches:/^[0-9-]+$/"
+        :valdation-messages="{
+          matches:'El telefono solo debe contener digitos'}"
+      help="Nombre del encargado de la entidad beneficiaria"/>
+    <FormulateInput
+      type="group"
+      name="items"
+      label="Items"
+      help="Añade los items que seran parte de la orden"
+      add-label="+ Añadir Item"
+      validation="min:1,length"
+      :repeatable="true"
+    >
+      <div class="item">
+        <FormulateInput 
+          name="quantity" 
+          label="Cantidad" 
+          type="number" 
+          min="1" 
+          validation="required|min:1" />
+        <FormulateInput 
+          name="type" 
+          type="select" 
+          label="Tipo" 
+          validation="required" 
+            :options="{ 
+              cereals: 'Cereales y derivados',
+              vegetables: 'Verduras y legumbres frescas',
+              fruits: 'Frutas frescas',
+              oilFat: 'Aceites y grasas',
+              lactose: 'Productos lácteos',
+              meat: 'Carnes, pescados y legumbres secas'}" />
+        <FormulateInput 
+          type="text" 
+          name="name" 
+          label="Nombre" 
+          validation="required"/>
+        <FormulateInput 
+          name="capacity" 
+          label="Capacidad" 
+          type="number"
+          help="Cantidad de la capacidad en Kg."/>
+      </div>
+    </FormulateInput>
+    <FormulateInput type="submit" value="Crear Order" />  
+  <pre>{{values}}</pre>
+
+  </FormulateForm>
 </template>
-
 <script>
-const schema = [
-  {
-    "component": "h3",
-    "children": "Nueva Orden"
-  }, 
-  {
-    "component": "div",
-    "class": "flex-wrapper",
-    "children": [
-      {
-        "label": "ID Orden",
-        "name": "orderId",
-        "help": "El ID de la Orden (ex. OE-14414)",
-        "placeholder": "OE-",
-        "validation": "^required|matches:/^ST-[\\d]{5}$/",
-        "validation-name": "Student ID"
-      },
-      {
-        "label": "Delegado del Banco",
-        "name": "name",
-        "help": "Responsable del banco de alimentos",
-        "validation": "required"
-      }
-    ]
-  },
-   {
-    "type": "select",
-    "label": "Entidad",
-    "name": "entity",
-    "placeholder": "Selecciona una entidad de apoyo",
-    "options": {
-        "sanRafael": "Hogar de Ninos San Rafael - 50 beneficiarios",
-        "aldeasSos": "Aldeas S.O.S. - 150 beneficiarios",
-        "patitasDescalzas": "Albergue Comunitario \"Patitas Descalzas\" - 70 beneficiarios"
-    },
-    "validation": "required"
-}, {
-    "label": "Nombre Encargado",
-    "name": "name",
-    "help": "Nombre del encargado de la entidad beneficiada",
-    "validation": "required"
-}, {
-    "type": "text",
-    "label": "Telefono Encargado",
-    "name": "phone",
-    "inputmode": "numeric",
-    "pattern": "[0-9]*",
-    "validation": "matches:/^[0-9-]+$/",
-    "validation-messages": {
-        "matches": "El telefono solo debe contener digitos"
-    }
-}, {
-    "type": "group",
-    "name": "items",
-    "validation": "min:1,length",
-    "repeatable": true,
-    "add-label": "+ Añadir item",
-    "value": [{}
-    ],
-    "children": [{
-            "type": "select",
-            "name": "platform",
-            "label": "Tipo Item",
-            "placeholder": "Selecciona uno",
-            "options": {
-                "twitter": "cereales y derivados",
-                "facebook": "verduras y legumbres frescas",
-                "instagram": "frutas frescas",
-                "linkedin": "aceites y grasas",
-                "lactose": "productos lácteos",
-                "meat": "carnes, pescados y legumbres secas"
-            }
-        }, {
-            "type": "text",
-            "name": "url",
-            "label": "Nombre",
-            "validation": "required"
-        }, {
-            "type": "select",
-            "name": "country_code",
-            "label": "Medida",
-            "outer-class": ["flex-item-small"],
-            "value": "1",
-            "options": {
-                "1": "Kg",
-                "49": "Unidad"
-            }
-        }, {
-            "label": "Cantidad",
-            "name": "name",
-            "validation": "required"
-        }
-    ]
-}, {
-    "type": "submit",
-    "label": "Crear Orden"
-}  
-];
-
 export default {
   name: "CreateOrder",
   props: {
     msg: String
   },
   data () {
-    return {
-      value: 'My initial value',
-      schema
+    return { 
+      values: {}, 
+      handleOrderSubmit: () => alert('Logged in') 
     }
   }
 };
@@ -120,18 +107,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
 </style>
