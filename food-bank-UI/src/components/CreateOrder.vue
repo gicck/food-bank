@@ -1,12 +1,15 @@
 <template>
-  <FormulateForm v-model="values" @submit="handleOrderSubmit">
+  <FormulateForm 
+    v-model="order"
+    name="orderForm" 
+    @submit="handleOrderSubmit">
     <FormulateInput 
       type="text" 
       name="orderId" 
       label="Id Orden" 
-      validation="^required"
+      validation="optional|matches:/^OE-[\d]{5}$/"
       :validation-messages="{
-        required: 'Este campo es requerido',
+        matches: 'Debe seguir el patron OE-...'
       }"
       placeholder="OE-"
       help="El ID de la Orden (ej. OE-14414)"/>
@@ -41,10 +44,10 @@
       label="Telefono Encargado" 
       inputmode="numeric"
       pattern="[0-9]*"
-      validation="matches:/^[0-9-]+$/"
-        :valdation-messages="{
-          matches:'El telefono solo debe contener digitos'}"
-      help="Nombre del encargado de la entidad beneficiaria"/>
+      validation="optional|matches:/^[0-9-]+$/"
+      :validation-messages="{
+        matches:'El telefono solo debe contener digitos'}"
+      help="Telefono del encargado de la entidad beneficiaria"/>
     <FormulateInput
       type="group"
       name="items"
@@ -52,15 +55,18 @@
       help="Añade los items que seran parte de la orden"
       add-label="+ Añadir Item"
       validation="min:1,length"
-      :repeatable="true"
-    >
+      :validation-messages="{
+        min:'Se necesita al menos 1 item'}"
+      :repeatable="true">    
       <div class="item">
         <FormulateInput 
           name="quantity" 
           label="Cantidad" 
           type="number" 
           min="1" 
-          validation="required|min:1" />
+          validation="required|min:1" 
+          :validation-messages="{
+            min:'La cantidad debe ser al menos 1'}"/>
         <FormulateInput 
           name="type" 
           type="select" 
@@ -82,15 +88,20 @@
           name="capacity" 
           label="Capacidad" 
           type="number"
+          min="1" 
+          validation="optional|min:1" 
+          :validation-messages="{
+            min:'La cantidad debe ser al menos 1'}"
           help="Cantidad de la capacidad en Kg."/>
       </div>
     </FormulateInput>
     <FormulateInput type="submit" value="Crear Order" />  
-  <pre>{{values}}</pre>
-
+  <pre>{{order}}</pre>
   </FormulateForm>
 </template>
 <script>
+import axios from 'axios';
+
 export default {
   name: "CreateOrder",
   props: {
@@ -98,8 +109,19 @@ export default {
   },
   data () {
     return { 
-      values: {}, 
-      handleOrderSubmit: () => alert('Logged in') 
+      order: {},
+      errors: [],
+      handleOrderSubmit: () => {
+        axios.post(`http://jsonplaceholder.typicode.com/posts`, {
+          body: this.order
+        })
+        .then(() => {
+          alert(`Orden añadida.`);
+          this.$formulate.reset('orderForm');          
+        })
+        .catch(e => {
+          this.errors.push(e)});
+      } 
     }
   }
 };
