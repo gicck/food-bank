@@ -1,18 +1,23 @@
 package com.foodbank.foodbankapi.models;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
+@Getter
+@Setter
 @Entity(name="Orders")
 public class OrderModel {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
+
+    @OneToMany(mappedBy = "orderModel", cascade = CascadeType.ALL)
+    private List<ItemModel> items;
 
     private String employeeName;
 
@@ -22,6 +27,7 @@ public class OrderModel {
 
     private String entityEmployeePhone;
 
+    @Enumerated(EnumType.STRING)
     private OrderState state;
 
     private boolean isDeleted;
