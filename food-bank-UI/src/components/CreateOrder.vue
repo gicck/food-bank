@@ -5,16 +5,6 @@
     @submit="handleOrderSubmit">
     <FormulateInput 
       type="text" 
-      name="orderId" 
-      label="Id Orden" 
-      validation="optional|matches:/^OE-[\d]{5}$/"
-      :validation-messages="{
-        matches: 'Debe seguir el patron OE-...'
-      }"
-      placeholder="OE-"
-      help="El ID de la Orden (ej. OE-14414)"/>
-    <FormulateInput 
-      type="text" 
       name="employeeName" 
       label="Delegado del Banco" 
       validation="required"
@@ -68,17 +58,17 @@
           :validation-messages="{
             min:'La cantidad debe ser al menos 1'}"/>
         <FormulateInput 
-          name="type" 
+          name="itemType" 
           type="select" 
           label="Tipo" 
           validation="required" 
             :options="{ 
-              cereals: 'Cereales y derivados',
-              vegetables: 'Verduras y legumbres frescas',
-              fruits: 'Frutas frescas',
-              oilFat: 'Aceites y grasas',
-              lactose: 'Productos lácteos',
-              meat: 'Carnes, pescados y legumbres secas'}" />
+              CEREALS: 'Cereales y derivados',
+              VEGETABLES: 'Verduras y legumbres frescas',
+              FRUITS: 'Frutas frescas',
+              FAT: 'Aceites y grasas',
+              LACTOSE: 'Productos lácteos',
+              MEAT: 'Carnes, pescados y legumbres secas'}" />
         <FormulateInput 
           type="text" 
           name="name" 
@@ -112,9 +102,7 @@ export default {
       order: {},
       errors: [],
       handleOrderSubmit: () => {
-        axios.post(`http://jsonplaceholder.typicode.com/posts`, {
-          body: this.order
-        })
+        axios.post(`http://localhost:9090/orders`, this.order)
         .then(() => {
           alert(`Orden añadida.`);
           this.$formulate.reset('orderForm');          
