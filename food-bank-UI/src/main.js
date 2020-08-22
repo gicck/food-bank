@@ -17,8 +17,8 @@ new Vue({
 Vue.use(VueFormulate, {
   locales: {
     en: {
-      required () {
-        return `El campo es requerido.`
+      required() {
+        return `El campo es requerido.`;
       }
     }
   }
