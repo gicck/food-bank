@@ -2,6 +2,7 @@ package com.foodbank.foodbankapi.models;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity(name="Orders")
+@Where(clause="is_deleted=false")
 public class OrderModel {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)

@@ -46,8 +46,8 @@ public class OrderController {
     }
 
     @DeleteMapping(value = "/orders/{id}")
-    public void deleteOrderById(@PathVariable long id) {
-        orderService.delete(id);
+    public void softDeleteOrderById(@PathVariable long id) {
+        orderService.softDelete(id);
     }
 
     @PutMapping(value = "/orders/{id}")
