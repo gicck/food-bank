@@ -3,12 +3,20 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
+const parseProps = r => ({ id: parseInt(r.params.id) });
 
 const routes = [
   {
     path: "/",
     name: "Home",
     component: Home
+  },
+  {
+    path: "/orders/:id",
+    name: "OrderDetail",
+    props: parseProps,
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/OrderDetail.vue")
   },
   {
     path: "/about",
