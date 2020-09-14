@@ -7,6 +7,8 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Getter
@@ -18,8 +20,8 @@ public class OrderModel {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(mappedBy = "orderModel", cascade = CascadeType.ALL)
-    private List<ItemModel> items;
+    @OneToMany(mappedBy = "orderModel", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItemModel> items = new ArrayList<ItemModel>();
 
     private String employeeName;
 
@@ -48,4 +50,14 @@ public class OrderModel {
     private LocalDateTime receivedDate;
 
     private LocalDateTime deletedDate;
+
+    public void addItem(ItemModel item) {
+        items.add(item);
+        item.setOrderModel(this);
+    }
+
+    private void removeItem(ItemModel item) {
+        items.remove(item);
+        item.setOrderModel(null);
+    }
 }

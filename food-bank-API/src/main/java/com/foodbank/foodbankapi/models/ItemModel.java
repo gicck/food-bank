@@ -16,7 +16,7 @@ public class ItemModel {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private OrderModel orderModel;
 

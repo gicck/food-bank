@@ -1,5 +1,6 @@
 package com.foodbank.foodbankapi.services;
 
+import com.foodbank.foodbankapi.models.ItemModel;
 import com.foodbank.foodbankapi.models.OrderModel;
 import com.foodbank.foodbankapi.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,13 @@ public class OrderService {
                     order.setDispatchedDate(LocalDateTime.now(ZoneOffset.UTC));
                     break;
             }
+
+            order.getItems().clear();
+
+            for (ItemModel item : newOrder.getItems()){
+                order.addItem(item);
+            }
+
             return orderRepository.save(order);
         })
         .orElseGet(() -> {
