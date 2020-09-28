@@ -23,11 +23,17 @@ public class ItemModel {
     @Enumerated(EnumType.STRING)
     private ItemType itemType;
 
-    private int quantity;
+    private double quantity;
+
+    private String measureType;
 
     private String name;
 
-    private int capacity;
+    private double capacity;
+
+    private double total;
+
+    private String itemDescription;
 
     private boolean isDeleted;
 

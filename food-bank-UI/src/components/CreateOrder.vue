@@ -1,4 +1,5 @@
 <template>
+  <!-- <div> -->
   <FormulateForm v-model="order" name="orderForm" @submit="handleOrderSubmit">
     <FormulateInput
       type="text"
@@ -49,6 +50,8 @@
       help="Añade los items que seran parte de la orden"
       add-label="+ Añadir Item"
       validation="min:1,length"
+      v-model="items"
+      #default="{index}"
       :validation-messages="{
         min: 'Se necesita al menos 1 item'
       }"
@@ -56,14 +59,10 @@
     >
       <div class="item">
         <FormulateInput
-          name="quantity"
-          label="Cantidad"
-          type="number"
-          min="1"
-          validation="required|min:1"
-          :validation-messages="{
-            min: 'La cantidad debe ser al menos 1'
-          }"
+          type="text"
+          name="name"
+          label="Nombre"
+          validation="required"
         />
         <FormulateInput
           name="itemType"
@@ -80,28 +79,52 @@
           }"
         />
         <FormulateInput
-          type="text"
-          name="name"
-          label="Nombre"
+          name="quantity"
+          label="Cantidad"
+          type="number"
+          min="1"
+          step="0.01"
           validation="required"
         />
         <FormulateInput
-          name="capacity"
-          label="Capacidad"
-          type="number"
-          min="1"
-          validation="optional|min:1"
-          :validation-messages="{
-            min: 'La cantidad debe ser al menos 1'
+          name="measureType"
+          type="select"
+          label="Tipo"
+          validation="required"
+          value="1"
+          :options="{
+            Lt: 'Litros',
+            Kg: 'Kilogramos',
+            Unit: 'Unidades'
           }"
-          help="Cantidad de la capacidad en Kg."
+        />
+        <FormulateInput
+          v-if="items[index] && items[index].measureType === 'Unit'"
+          name="capacity"
+          label="Cantidad por unidad"
+          type="number"
+          min="0"
+          step="0.01"
+          validation="required"
+          help="Cantidad de la capacidad en Kg/Lt."
+        />
+        <div>
+          <p>Cantidad Total: {{ total(items[index]) }} Kg./Lt.</p>
+        </div>
+        <FormulateInput
+          type="textarea"
+          name="itemDescription"
+          label="Observaciones"
+          validation="max:50,length"
         />
       </div>
     </FormulateInput>
     <FormulateInput type="submit" value="Crear Order" />
-    <!-- <pre>{{order}}</pre> -->
+    <!-- <FormulateInput type="submit" value="Crear Order" /> -->
+    <pre>{{ order }}</pre>
   </FormulateForm>
 </template>
+
 <script>
 import axios from "axios";
 
@@ -110,9 +133,25 @@ export default {
   props: {
     msg: String
   },
+  methods: {
+    total: function(currentItem) {
+      var total = 0;
+      if (currentItem) {
+        if (currentItem.measureType == "Unit") {
+          total = currentItem.quantity * currentItem.capacity;
+          currentItem.total = total;
+        } else {
+          total = currentItem.quantity;
+          currentItem.total = total;
+        }
+      }
+      return total;
+    }
+  },
   data() {
     return {
       order: {},
+      items: [{}],
       errors: [],
       handleOrderSubmit: () => {
         axios
@@ -129,6 +168,3 @@ export default {
   }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss"></style>

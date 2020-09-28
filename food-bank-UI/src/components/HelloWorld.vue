@@ -33,7 +33,7 @@
                   class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                 >
                   <th class="px-4 py-3">Entidad Beneficiada</th>
-                  <th class="px-4 py-3">Cantidad </th>
+                  <th class="px-4 py-3">Cantidad</th>
                   <th class="px-4 py-3">Estado</th>
                   <th class="px-4 py-3">Fecha</th>
                   <th class="px-4 py-3"></th>
@@ -111,10 +111,10 @@
                             ></path>
                           </svg>
                         </router-link>
-                      </button>                      
+                      </button>
                     </div>
                   </td>
-                </tr>       
+                </tr>
                 <div class="" v-show="message">{{ message }}</div>
               </tbody>
             </table>
@@ -222,9 +222,7 @@
 </template>
 
 <script>
-import { dataService } from "../shared";
-import moment from 'moment';
-// import { displayDateFormat } from '../shared';
+import { dataService, dateService } from "../shared";
 
 export default {
   name: "HelloWorld",
@@ -252,22 +250,22 @@ export default {
     }
   },
   filters: {
-    shortDate: (date) => {      
-      return moment(date).format('L');
+    shortDate: date => {
+      return dateService.getDateAndTime(date);
     },
-    statusName: function (status) {
+    statusName: function(status) {
       let statusName = {
-        CREATED: 'Creado',
-        PACKED: 'Empacado',
-        FINALIZED: 'Finalizado',
-        DISPATCHED: 'Despachado',
-        ACCEPTED: 'Aceptado',
-        RECEIVED: 'Recbido',
-      }
+        CREATED: "Creado",
+        PACKED: "Empacado",
+        FINALIZED: "Finalizado",
+        DISPATCHED: "Despachado",
+        ACCEPTED: "Aceptado",
+        RECEIVED: "Recbido"
+      };
 
       return statusName[status];
     }
-  },
+  }
 };
 </script>
 
