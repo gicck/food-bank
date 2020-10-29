@@ -45,6 +45,16 @@ const updateOrder = async function(order) {
   }
 };
 
+const createOrder = async function(order) {
+  try {
+    const response = await axios.post(`http://localhost:9090/orders`, order);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 const deleteOrder = async function(id) {
   try {
     const response = await axios.delete(`http://localhost:9090/orders/${id}`);
@@ -79,5 +89,6 @@ export const dataService = {
   getOrders,
   getOrder,
   updateOrder,
-  deleteOrder
+  deleteOrder,
+  createOrder
 };
