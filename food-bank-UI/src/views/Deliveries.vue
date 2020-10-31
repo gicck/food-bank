@@ -14,6 +14,7 @@
       <div class="flex flex-wrap -m-10">
         <div class="p-4 md:w-1/2">
           <div class="border-t border-gray-300 p-6 text-center rounded-bl-lg">
+            <router-link to="/deliveryCreate" class="nav-link">
             <button
               class="flex items-center mt-auto text-white bg-indigo-500 border-0 py-2 px-4 w-full focus:outline-none hover:bg-indigo-600 rounded"
             >
@@ -30,6 +31,7 @@
                 <path d="M5 12h14M12 5l7 7-7 7"></path>
               </svg>
             </button>
+            </router-link>
           </div>
         </div>
         <div class="p-4 md:w-1/2">

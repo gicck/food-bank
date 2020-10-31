@@ -1,20 +1,20 @@
 <template>
-  <section class="py-6 text-gray-700 body-font relative">
+    <section class="py-6 text-gray-700 body-font relative">
     <div class="mt-10 sm:mt-0">
       <div class="md:grid md:grid-cols-3 md:gap-6">
         <div class="mt-5 md:mt-0 md:col-span-2">
           <FormulateForm
-            v-model="order"
-            name="orderForm"
-            @submit="handleOrderSubmit"
+            v-model="delivery"
+            name="deliveryForm"
+            @submit="handleDeliverySubmit"
           >
             <div class="shadow overflow-hidden sm:rounded-md">
               <div class="px-4 py-5 bg-white sm:p-6">
                 <h3 class="pb-5 text-lg font-medium leading-6 text-gray-900">
-                  Crear Orden de Entrega
+                  Crear Entrega
                 </h3>
                 <div class="grid grid-cols-6 gap-6">
-                  <div class="col-span-6">
+                  <!-- <div class="col-span-6">
                     <FormulateInput
                       type="text"
                       name="employeeName"
@@ -51,8 +51,6 @@
                       validation="required"
                       help="Nombre del encargado de la entidad beneficiaria"
                     />
-                    <!-- <label for="first_name" class="block text-sm font-medium leading-5 text-gray-700">First name</label>
-                <input id="first_name" class="mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"> -->
                   </div>
 
                   <div class="col-span-6 sm:col-span-3">
@@ -68,19 +66,18 @@
                       }"
                       help="Telefono del encargado de la entidad beneficiaria"
                     />
-                  </div>
+                  </div> -->
                   <div class="col-span-6">
                     <FormulateInput
                       type="group"
-                      name="items"
-                      label="Items"
-                      help="Añade los items que seran parte de la orden"
-                      add-label="+ Añadir Item"
+                      name="stops"
+                      label="Paradas"
+                      help="Añade las paradas que seran parte de la entrega"
+                      add-label="+ Añadir Parada"
                       validation="min:1,length"
-                      v-model="items"
-                      #default="{index}"
+                      v-model="stops"
                       :validation-messages="{
-                        min: 'Se necesita al menos 1 item'
+                        min: 'Se necesita al menos 1 parada'
                       }"
                       :repeatable="true"
                     >
@@ -88,12 +85,44 @@
                         <div class="col-span-6 sm:col-span-3">
                           <FormulateInput
                             type="text"
-                            name="name"
-                            label="Nombre"
+                            name="pickup"
+                            label="Direccion Partida"
                             validation="required"
                           />
                         </div>
                         <div class="col-span-6 sm:col-span-3">
+                          <FormulateInput
+                            type="text"
+                            name="destination"
+                            label="Direccion Llegada"
+                            validation="required"
+                          />
+                        </div>
+                        <div class="col-span-6">
+                          <FormulateInput
+                            type="datetime-local"
+                            name="pickupTime"
+                            label="Hora Partida"
+                            validation="required"
+                          />
+                        </div>
+                        <div class="col-span-6">
+                          <FormulateInput
+                            type="datetime-local"
+                            name="destinationTime"
+                            label="Hora Partida"
+                            validation="required"
+                          />
+                        </div>
+                        <div class="col-span-6">
+                          <FormulateInput
+                            type="textarea"
+                            name="instructions"
+                            label="Instrucciones"
+                            validation="max:50,length"
+                          />
+                        </div>
+                        <!-- <div class="col-span-6 sm:col-span-3">
                           <FormulateInput
                             name="itemType"
                             type="select"
@@ -160,7 +189,7 @@
                           <p>
                             Cantidad Total: {{ total(items[index]) }} Kg./Lt.
                           </p>
-                        </div>
+                        </div> -->
                       </div>
                     </FormulateInput>
                   </div>
@@ -169,7 +198,7 @@
               <div class="col-span-6">
                 <FormulateInput type="submit" value="Crear Order" />
               </div>
-              <!-- <pre>{{ order }}</pre> -->
+              <pre>{{ delivery }}</pre>
             </div>
           </FormulateForm>
         </div>
@@ -179,73 +208,18 @@
 </template>
 
 <script>
-import { dataService, dateService, exportService } from "../shared";
+    export default {
+        name: "DeliveryCreate",
+        components : {
 
-export default {
-  name: "OrderCreate",
-  props: {
-    id: {
-      type: Number,
-      default: 0
-    }
-  },
-  data() {
-    return {
-      order: {},
-      items: [{}],
-      handleOrderSubmit: async () => {
-        const response = await dataService.createOrder(this.order);
-        if (response) {
-          alert(`Orden añadida.`);
-          this.$formulate.reset("orderForm");
-        } else {
-          this.errors.push();
         }
-      }
-    };
-  },  
-  methods: {
-    total: function(currentItem) {
-      var total = 0;
-      if (currentItem) {
-        if (currentItem.measureType == "Unit") {
-          total = currentItem.quantity * currentItem.capacity;
-          currentItem.total = total;
-        } else {
-          total = currentItem.quantity;
-          currentItem.total = total;
+        ,
+        data() {
+            return {
+                delivery: {},
+                stops:[{}]
+            }
         }
-      }
-      return total;
-    },
-    async deleteOrder() {
-      await dataService.deleteOrder(this.order.id);
-      this.$router.push({ name: "Home" });
-    },
-    cancelOrder() {
-      this.$router.push({ name: "Home" });
-    },
-    exportOrder() {
-      console.log("Exporting");
-      exportService.printPDF(this.order);
+        
     }
-  },
-  filters: {
-    shortDate: date => {
-      return dateService.getDateAndTime(date);
-    },
-    statusName: function(status) {
-      let statusName = {
-        CREATED: "Creado",
-        PACKED: "Empacado",
-        FINALIZED: "Finalizado",
-        DISPATCHED: "Despachado",
-        ACCEPTED: "Aceptado",
-        RECEIVED: "Recbido"
-      };
-
-      return statusName[status];
-    }
-  }
-};
 </script>
