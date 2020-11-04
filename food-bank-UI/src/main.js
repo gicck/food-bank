@@ -5,6 +5,7 @@ import store from "./store";
 import VueFormulate from "@braid/vue-formulate";
 import "./assets/css/tailwind.css";
 import "./assets/css/snowman.css";
+import 'leaflet/dist/leaflet.css';
 
 Vue.config.productionTip = false;
 

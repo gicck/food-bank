@@ -326,13 +326,7 @@
 import { dataService, dateService, exportService } from "../shared";
 
 export default {
-  name: "OrderDetail",
-  props: {
-    id: {
-      type: Number,
-      default: 0
-    }
-  },
+  name: "OrderDetail", 
   data() {
     return {
       order: {},

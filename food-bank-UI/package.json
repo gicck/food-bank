@@ -13,10 +13,12 @@
     "core-js": "^3.6.5",
     "dayjs": "^1.8.36",
     "jspdf": "^2.1.1",
+    "leaflet": "^1.7.1",
     "svg2pdf.js": "^2.0.0",
     "tailwindcss": "^1.6.2",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
+    "vue2-leaflet": "^2.6.0",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
