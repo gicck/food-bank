@@ -203,7 +203,7 @@ export default {
         }
       }
     };
-  },  
+  },
   methods: {
     total: function(currentItem) {
       var total = 0;

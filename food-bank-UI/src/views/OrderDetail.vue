@@ -326,7 +326,7 @@
 import { dataService, dateService, exportService } from "../shared";
 
 export default {
-  name: "OrderDetail", 
+  name: "OrderDetail",
   data() {
     return {
       order: {},
