@@ -71,7 +71,7 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Recipients.vue")
-  },  
+  },
   {
     path: "/recipientCreate",
     name: "RecipientCreate",
@@ -89,7 +89,7 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Donors.vue")
-  }  
+  }
 ];
 
 const router = new VueRouter({
