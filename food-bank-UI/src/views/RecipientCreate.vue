@@ -72,8 +72,7 @@
       </div>
     </div> -->
     <!-- <div class="col-span-6"> -->
-      <Map @setLocation="setLocation"/>
-                    
+    <Map :initalLocation="currentLocation" @setLocation="setLocation" />
   </section>
 </template>
 
@@ -81,26 +80,45 @@
 import Map from "@/components/map";
 
 export default {
-    name: "RecipientCreate",
-    components: {        
-        Map
-    },   
-    data() {
-    return {        
-        recipient: {}, 
-        selectedLocation: undefined,     
-        handleRecipientSubmit: async () => {        
-        }
-      };
-    },
-    methods: {      
-      setLocation(location) {        
-        this.selectedLocation = location;
+  name: "RecipientCreate",
+  components: {
+    Map
+  },
+  data() {
+    return {
+      recipient: {},
+      currentLocation: {},
+      selectedLocation: undefined,
+      handleRecipientSubmit: async () => {}
+    };
+  },
+  methods: {
+    setLocation(location) {
+      this.selectedLocation = location;
+    }
+  },
+  created() {
+    //do we support geolocation
+    if (!("geolocation" in navigator)) {
+      alert("Geolocation is not available.");
+      return;
+    }
+    // get position
+    navigator.geolocation.getCurrentPosition(
+      pos => {
+        // console.log("position", pos.coords.latitude);
+        // console.log("position", pos.coords.longitude);
+        this.currentLocation.lat = pos.coords.latitude;
+        this.currentLocation.lng = pos.coords.longitude;
+
+        // console.log(this.currentLocation);
       },
-    }  
-}
+      err => {
+        alert(err.message);
+      }
+    );
+  }
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
