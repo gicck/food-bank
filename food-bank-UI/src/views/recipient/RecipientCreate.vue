@@ -1,6 +1,6 @@
 <template>
   <section class="py-6 text-gray-700 body-font relative">
-    <!-- <div class="mt-10 sm:mt-0">
+    <div class="mt-10 sm:mt-0">
       <div class="md:grid md:grid-cols-3 md:gap-6">
         <div class="mt-5 md:mt-0 md:col-span-2">
           <FormulateForm
@@ -60,64 +60,58 @@
                       }"
                       help="Telefono del encargado de la entidad beneficiaria"
                     />
-                  </div>                  
+                  </div>       
+                  <div class="col-span-6">
+                    <FormulateInput
+                      type="text"
+                      name="LocationName"
+                      label="Direccion"
+                      validation="required"
+                      :validation-messages="{
+                        required: 'Este campo es requerido'
+                      }"
+                      help="Direccion de recojo de la entidad"
+                    />
+                  </div>
+                  <div class="col-span-6">
+                    <!-- {{location}} -->
+                    <!-- <span class="block text-sm font-medium leading-5 text-gray-700">Direccion</span> -->
+                    <location-selector-map v-model="location"/>
+                  </div>
+                  <div class="col-span-6">
+                    <FormulateInput type="submit" value="Crear Beneficiario" />
+                  </div>
                 </div>
-              </div>
-              <div class="col-span-6">
-                <FormulateInput type="submit" value="Crear Order" />
-              </div>
+                </div>               
+
             </div>
           </FormulateForm>
         </div>
       </div>
-    </div> -->
+    </div>
     <!-- <div class="col-span-6"> -->
-    <Map :initalLocation="currentLocation" @setLocation="setLocation" />
+    
+    
   </section>
 </template>
 
 <script>
-import Map from "@/components/map";
+import LocationSelectorMap from '../../components/LocationSelectorMap';
 
 export default {
   name: "RecipientCreate",
   components: {
-    Map
+    LocationSelectorMap
   },
   data() {
     return {
       recipient: {},
-      currentLocation: {},
-      selectedLocation: undefined,
+      location: { "position": { "lat": -10.376246400377795, "lng": -60.15699619613831 }, "address": "" },
       handleRecipientSubmit: async () => {}
     };
   },
   methods: {
-    setLocation(location) {
-      this.selectedLocation = location;
-    }
-  },
-  created() {
-    //do we support geolocation
-    if (!("geolocation" in navigator)) {
-      alert("Geolocation is not available.");
-      return;
-    }
-    // get position
-    navigator.geolocation.getCurrentPosition(
-      pos => {
-        // console.log("position", pos.coords.latitude);
-        // console.log("position", pos.coords.longitude);
-        this.currentLocation.lat = pos.coords.latitude;
-        this.currentLocation.lng = pos.coords.longitude;
-
-        // console.log(this.currentLocation);
-      },
-      err => {
-        alert(err.message);
-      }
-    );
-  }
+  }  
 };
 </script>
 
