@@ -1,38 +1,34 @@
 <template>
-<div style="height: 500px; width: 100%">
-  <l-map
-    ref="map"
-    @dblclick="onMapClick"
-    :zoom="zoom"
-    :center="[
-      position.lat || userLocation.lat || defaultLocation.lat,
-      position.lng || userLocation.lng || defaultLocation.lng
-    ]"
-  >
-     <l-tile-layer
-      :url="tileProvider.url"
-      :attribution="tileProvider.attribution"
-    />
-    <l-marker
-      v-if="position.lat && position.lng"
-      visible
-      draggable
-      :lat-lng.sync="position"
-      @dragstart="dragging = true"
-      @dragend="dragging = false"
+  <div style="height: 500px; width: 100%">
+    <l-map
+      ref="map"
+      @dblclick="onMapClick"
+      :zoom="zoom"
+      :center="[
+        position.lat || userLocation.lat || defaultLocation.lat,
+        position.lng || userLocation.lng || defaultLocation.lng
+      ]"
     >
-    <l-tooltip :content="tooltipContent" :options="{ permanent: true }" />
-    </l-marker>
-  </l-map>  
-</div>
+      <l-tile-layer
+        :url="tileProvider.url"
+        :attribution="tileProvider.attribution"
+      />
+      <l-marker
+        v-if="position.lat && position.lng"
+        visible
+        draggable
+        :lat-lng.sync="position"
+        @dragstart="dragging = true"
+        @dragend="dragging = false"
+      >
+        <l-tooltip :content="tooltipContent" :options="{ permanent: true }" />
+      </l-marker>
+    </l-map>
+  </div>
 </template>
 <script>
-import { LMap,
-  LMarker,
-  LTileLayer,
-  LTooltip
-} from "vue2-leaflet";
-import { Icon } from "leaflet"
+import { LMap, LMarker, LTileLayer, LTooltip } from "vue2-leaflet";
+import { Icon } from "leaflet";
 
 delete Icon.Default.prototype._getIconUrl;
 Icon.Default.mergeOptions({
@@ -46,7 +42,7 @@ export default {
     LMap,
     LTileLayer,
     LMarker,
-    LTooltip,
+    LTooltip
   },
   props: {
     value: {
@@ -63,18 +59,18 @@ export default {
   },
   data() {
     return {
-      loading:false,
+      loading: false,
       userLocation: {},
       position: {},
-      address:"",
+      address: "",
       tileProvider: {
         attribution:
           '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
         url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       },
       zoom: 18,
-      dragging:false
-    }
+      dragging: false
+    };
   },
   mounted() {
     this.getUserPosition();
@@ -108,11 +104,11 @@ export default {
     async getUserPosition() {
       // check if API is supported
       //TODO wrap this to SET the user location
-            // this.userLocation = {
-            //   lat: -17.40355440056167,
-            //   lng: -66.14374306310076
-            // }
-            // this.position = this.userLocation;
+      // this.userLocation = {
+      //   lat: -17.40355440056167,
+      //   lng: -66.14374306310076
+      // }
+      // this.position = this.userLocation;
       if (navigator.geolocation) {
         // get  geolocation
         navigator.geolocation.getCurrentPosition(pos => {

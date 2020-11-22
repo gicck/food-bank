@@ -52,7 +52,9 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/delivery/DeliveryDetail.vue")
+      import(
+        /* webpackChunkName: "about" */ "../views/delivery/DeliveryDetail.vue"
+      )
   },
   {
     path: "/deliveryCreate",
@@ -61,7 +63,9 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/delivery/DeliveryCreate.vue")
+      import(
+        /* webpackChunkName: "about" */ "../views/delivery/DeliveryCreate.vue"
+      )
   },
   {
     path: "/recipientView",
@@ -70,7 +74,9 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/recipient/Recipients.vue")
+      import(
+        /* webpackChunkName: "about" */ "../views/recipient/Recipients.vue"
+      )
   },
   {
     path: "/recipientCreate",
@@ -79,7 +85,9 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/recipient/RecipientCreate.vue")
+      import(
+        /* webpackChunkName: "about" */ "../views/recipient/RecipientCreate.vue"
+      )
   },
   {
     path: "/donorView",

@@ -60,7 +60,7 @@
                       }"
                       help="Telefono del encargado de la entidad beneficiaria"
                     />
-                  </div>       
+                  </div>
                   <div class="col-span-6">
                     <FormulateInput
                       type="text"
@@ -76,27 +76,23 @@
                   <div class="col-span-6">
                     <!-- {{location}} -->
                     <!-- <span class="block text-sm font-medium leading-5 text-gray-700">Direccion</span> -->
-                    <location-selector-map v-model="location"/>
+                    <location-selector-map v-model="location" />
                   </div>
                   <div class="col-span-6">
                     <FormulateInput type="submit" value="Crear Beneficiario" />
                   </div>
                 </div>
-                </div>               
-
+              </div>
             </div>
           </FormulateForm>
         </div>
       </div>
     </div>
-    <!-- <div class="col-span-6"> -->
-    
-    
   </section>
 </template>
 
 <script>
-import LocationSelectorMap from '../../components/LocationSelectorMap';
+import LocationSelectorMap from "../../components/LocationSelectorMap";
 
 export default {
   name: "RecipientCreate",
@@ -106,12 +102,14 @@ export default {
   data() {
     return {
       recipient: {},
-      location: { "position": { "lat": -10.376246400377795, "lng": -60.15699619613831 }, "address": "" },
+      location: {
+        position: { lat: -10.376246400377795, lng: -60.15699619613831 },
+        address: ""
+      },
       handleRecipientSubmit: async () => {}
     };
   },
-  methods: {
-  }  
+  methods: {}
 };
 </script>
 
