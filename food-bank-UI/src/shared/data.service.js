@@ -1,5 +1,4 @@
 import * as axios from "axios";
-// import { API } from "./config";
 
 const getOrders = async function() {
   try {
@@ -7,10 +6,19 @@ const getOrders = async function() {
 
     let data = parseList(response);
 
-    // const heroes = data.map((h) => {
-    //   h.originDate = format(h.originDate, inputDateFormat);
-    //   return h;
-    // });
+    return data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+const getRecipients = async function() {
+  try {
+    const response = await axios.get(`http://localhost:9090/recipients`);
+
+    let data = parseList(response);
+
     return data;
   } catch (error) {
     console.log(error);
@@ -55,6 +63,16 @@ const createOrder = async function(order) {
   }
 };
 
+const createRecipient = async function(recipient) {
+  try {
+    const response = await axios.post(`http://localhost:9090/recipients`, recipient);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 const deleteOrder = async function(id) {
   try {
     const response = await axios.delete(`http://localhost:9090/orders/${id}`);
@@ -90,5 +108,7 @@ export const dataService = {
   getOrder,
   updateOrder,
   deleteOrder,
-  createOrder
+  createOrder,
+  createRecipient,
+  getRecipients
 };

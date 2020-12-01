@@ -17,7 +17,7 @@
                   <div class="col-span-6 sm:col-span-3">
                     <FormulateInput
                       type="text"
-                      name="entityName"
+                      name="recipientName"
                       label="Entidad Beneficiada"
                       validation="required"
                       :validation-messages="{
@@ -29,7 +29,7 @@
                   <div class="col-span-6 sm:col-span-3">
                     <FormulateInput
                       type="number"
-                      name="entityQuantity"
+                      name="recipientQuantity"
                       label="Cantidad Beneficiados"
                       validation="required"
                       :validation-messages="{
@@ -41,7 +41,7 @@
                   <div class="col-span-6 sm:col-span-3">
                     <FormulateInput
                       type="text"
-                      name="entityEmployeeName"
+                      name="personName"
                       label="Nombre Encargado"
                       validation="required"
                       help="Nombre del encargado de la entidad beneficiaria"
@@ -50,7 +50,7 @@
                   <div class="col-span-6 sm:col-span-3">
                     <FormulateInput
                       type="text"
-                      name="entityEmployeePhone"
+                      name="phoneNumber"
                       label="Telefono Encargado"
                       inputmode="numeric"
                       pattern="[0-9]*"
@@ -64,7 +64,7 @@
                   <div class="col-span-6">
                     <FormulateInput
                       type="text"
-                      name="LocationName"
+                      name="address"
                       label="Direccion"
                       validation="required"
                       :validation-messages="{
@@ -79,7 +79,14 @@
                     <location-selector-map v-model="location" />
                   </div>
                   <div class="col-span-6">
-                    <FormulateInput type="submit" value="Crear Beneficiario" />
+                    <pre>{{ location }}</pre>
+                  </div>
+                  <div class="col-span-6">
+                    <pre>{{ recipient }}</pre>
+                  </div>
+
+                  <div class="col-span-6">
+                    <FormulateInput type="submit"/>
                   </div>
                 </div>
               </div>
@@ -93,6 +100,7 @@
 
 <script>
 import LocationSelectorMap from "../../components/LocationSelectorMap";
+import { dataService } from "../../shared";
 
 export default {
   name: "RecipientCreate",
@@ -106,7 +114,19 @@ export default {
         position: { lat: -10.376246400377795, lng: -60.15699619613831 },
         address: ""
       },
-      handleRecipientSubmit: async () => {}
+      handleRecipientSubmit: async () => {
+        let realRecipient = { ...this.recipient };
+        realRecipient.latitude = this.location.position.lat;
+        realRecipient.longitude = this.location.position.lng;
+
+        const response = await dataService.createRecipient(realRecipient);
+        if (response) {
+          alert(`Beneficiario añadido.`);
+          this.$formulate.reset("recipientForm");
+        } else {
+          this.errors.push();
+        }
+      }
     };
   },
   methods: {}
