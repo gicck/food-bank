@@ -90,6 +90,13 @@ const routes = [
       )
   },
   {
+    path: "/recipients/:id",
+    name: "RecipientDetail",
+    props: parseProps,
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/recipient/RecipientDetail.vue")
+  },
+  {
     path: "/donorView",
     name: "Donors",
     // route level code-splitting

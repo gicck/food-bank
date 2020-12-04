@@ -38,6 +38,18 @@ const getOrder = async function(id) {
   }
 };
 
+const getSingle = async function(name, id) {
+  try {
+    const response = await axios.get(`http://localhost:9090/${name}s/${id}`);
+    let order = parseItem(response, 200);
+    return order;
+  } catch (error) {
+    console.log(error);
+    // console.error(error);
+    return null;
+  }
+};
+
 const updateOrder = async function(order) {
   try {
     const response = await axios.put(
@@ -110,5 +122,6 @@ export const dataService = {
   deleteOrder,
   createOrder,
   createRecipient,
-  getRecipients
+  getRecipients,
+  getSingle
 };

@@ -56,7 +56,7 @@
                   class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                 >
                   <th class="px-4 py-3">Entidad Beneficiada</th>
-                  <th class="px-4 py-3">Beneficiados</th>
+                  <th class="px-4 py-3">No. Beneficiados</th>
                   <th class="px-4 py-3">Direccion</th>
                   <th class="px-4 py-3"></th>
                   <th class="px-4 py-3"></th>
@@ -114,7 +114,7 @@
                         <router-link
                           tag="button"
                           :to="{
-                            name: 'recipientDetail',
+                            name: 'RecipientDetail',
                             params: { id: recipient.id }
                           }"
                         >

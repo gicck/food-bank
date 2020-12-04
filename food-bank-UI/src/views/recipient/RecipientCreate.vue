@@ -78,15 +78,15 @@
                     <!-- <span class="block text-sm font-medium leading-5 text-gray-700">Direccion</span> -->
                     <location-selector-map v-model="location" />
                   </div>
-                  <div class="col-span-6">
+                  <!-- <div class="col-span-6">
                     <pre>{{ location }}</pre>
                   </div>
                   <div class="col-span-6">
                     <pre>{{ recipient }}</pre>
-                  </div>
+                  </div> -->
 
                   <div class="col-span-6">
-                    <FormulateInput type="submit"/>
+                    <FormulateInput type="submit" value="Crear Beneficiario"/>
                   </div>
                 </div>
               </div>

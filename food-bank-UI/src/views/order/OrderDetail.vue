@@ -327,6 +327,12 @@ import { dataService, dateService, exportService } from "../../shared";
 
 export default {
   name: "OrderDetail",
+  props: {
+    id: {
+      type: Number,
+      default: 0,
+    },
+  },
   data() {
     return {
       order: {},
@@ -338,6 +344,7 @@ export default {
     };
   },
   async created() {
+    console.log(this.id);
     this.order = await dataService.getOrder(this.id);
   },
   methods: {
