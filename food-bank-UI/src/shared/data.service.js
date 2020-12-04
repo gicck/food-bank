@@ -26,6 +26,19 @@ const getRecipients = async function() {
   }
 };
 
+const getMany = async function(name) {
+  try {
+    const response = await axios.get(`http://localhost:9090/${name}`);
+
+    let data = parseList(response);
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
 const getOrder = async function(id) {
   try {
     const response = await axios.get(`http://localhost:9090/orders/${id}`);
@@ -68,6 +81,16 @@ const updateOrder = async function(order) {
 const createOrder = async function(order) {
   try {
     const response = await axios.post(`http://localhost:9090/orders`, order);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+const create = async function(name, item) {
+  try {
+    const response = await axios.post(`http://localhost:9090/${name}`, item);
     return response;
   } catch (error) {
     console.log(error);
@@ -123,5 +146,7 @@ export const dataService = {
   createOrder,
   createRecipient,
   getRecipients,
-  getSingle
+  getSingle,
+  getMany,
+  create
 };

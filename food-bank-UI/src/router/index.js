@@ -90,11 +90,29 @@ const routes = [
       )
   },
   {
+    path: "/donorCreate",
+    name: "DonorCreate",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "../views/donor/DonorCreate.vue"
+      )
+  },
+  {
     path: "/recipients/:id",
     name: "RecipientDetail",
     props: parseProps,
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/recipient/RecipientDetail.vue")
+  },
+  {
+    path: "/donors/:id",
+    name: "DonorDetail",
+    props: parseProps,
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/donor/DonorDetail.vue")
   },
   {
     path: "/donorView",
