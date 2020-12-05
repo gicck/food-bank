@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
 public class DeliveryController {
@@ -22,6 +19,4 @@ public class DeliveryController {
     public DeliveryModel saveDelivery(@RequestBody DeliveryModel deliveryModel) {
         return  deliveryService.save(deliveryModel);
     }
-
-
 }
