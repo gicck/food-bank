@@ -100,7 +100,10 @@ const create = async function(name, item) {
 
 const createRecipient = async function(recipient) {
   try {
-    const response = await axios.post(`http://localhost:9090/recipients`, recipient);
+    const response = await axios.post(
+      `http://localhost:9090/recipients`,
+      recipient
+    );
     return response;
   } catch (error) {
     console.log(error);

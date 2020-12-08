@@ -25,7 +25,7 @@
                       }"
                       help="Nombre de la entidad donante"
                     />
-                  </div>                  
+                  </div>
                   <div class="col-span-6 sm:col-span-3">
                     <FormulateInput
                       type="text"
@@ -74,7 +74,7 @@
                   </div> -->
 
                   <div class="col-span-6">
-                    <FormulateInput type="submit" value="Crear Donador"/>
+                    <FormulateInput type="submit" value="Crear Donador" />
                   </div>
                 </div>
               </div>
@@ -107,7 +107,7 @@ export default {
         realDonor.latitude = this.location.position.lat;
         realDonor.longitude = this.location.position.lng;
 
-        const response = await dataService.create('donors',realDonor);
+        const response = await dataService.create("donors", realDonor);
         if (response) {
           alert(`Donante añadido.`);
           this.$formulate.reset("donorForm");

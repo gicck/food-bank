@@ -86,7 +86,7 @@
                   </div> -->
 
                   <div class="col-span-6">
-                    <FormulateInput type="submit" value="Crear Beneficiario"/>
+                    <FormulateInput type="submit" value="Crear Beneficiario" />
                   </div>
                 </div>
               </div>

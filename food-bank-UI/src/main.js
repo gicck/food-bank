@@ -43,7 +43,6 @@ Vue.use(VueFormulate, {
         case "button":
           return "flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg";
         case "textarea":
-          console.log(classification);
           return "form-textarea mt-1 block w-full focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5";
         case "group":
           return "w-full bg-gray-100 rounded border border-gray-400 focus:outline-none h-48 focus:border-indigo-500 text-base px-4 py-2 resize-none block";

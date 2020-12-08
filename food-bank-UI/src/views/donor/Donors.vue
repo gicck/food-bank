@@ -98,13 +98,12 @@
                     </div>
                   </td>
                   <td class="px-4 py-3 text-sm">
-                    {{ donor.personName }}                    
+                    {{ donor.personName }}
                   </td>
-                  <td class="px-4 py-3 text-xs">                    
+                  <td class="px-4 py-3 text-xs">
                     {{ donor.address }}
                   </td>
-                  <td class="px-4 py-3 text-sm">
-                  </td>
+                  <td class="px-4 py-3 text-sm"></td>
                   <td class="px-4 py-3">
                     <div class="flex items-center space-x-4 text-sm">
                       <button
@@ -133,7 +132,9 @@
                     </div>
                   </td>
                 </tr>
-                <div class="" v-show="loadDonorsMessage">{{ loadDonorsMessage }}</div>
+                <div class="" v-show="loadDonorsMessage">
+                  {{ loadDonorsMessage }}
+                </div>
               </tbody>
             </table>
           </div>
@@ -240,14 +241,14 @@
 </template>
 
 <script>
-import { dataService } from '../../shared';
+import { dataService } from "../../shared";
 export default {
   name: "RecipeintsView",
   data() {
-    return{
+    return {
       donors: [],
       loadDonorsMessage: ""
-    }
+    };
   },
   async created() {
     await this.loadDonors();
@@ -255,9 +256,9 @@ export default {
   methods: {
     async loadDonors() {
       this.donors = [];
-      this.loadDonorsMessage = "Obteniendo Beneficiarios..."
+      this.loadDonorsMessage = "Obteniendo Beneficiarios...";
 
-      this.donors = await dataService.getMany('donors');
+      this.donors = await dataService.getMany("donors");
 
       this.loadDonorsMessage = "";
     }
