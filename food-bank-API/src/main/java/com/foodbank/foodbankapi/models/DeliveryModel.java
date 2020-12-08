@@ -3,6 +3,7 @@ package com.foodbank.foodbankapi.models;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Where;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,13 +17,16 @@ public class DeliveryModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-//    @OneToOne
-    private Long orderId;
 
-//    @OneToOne
-    private Long recipientId;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "recipient_id", nullable = false)
+    private RecipientModel recipient;
 
-    private String fromAddress;
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "order_id", nullable = false)
+    private OrderModel order;
+
+    private String description;
 
     private String fromName;
 
@@ -39,5 +43,10 @@ public class DeliveryModel {
     private LocalDateTime arrivalTime;
 
     private String instructions;
+
+    private boolean isDeleted;
+
+    @CreatedDate
+    private LocalDateTime createdDate;
 
 }

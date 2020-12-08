@@ -1,5 +1,6 @@
 package com.foodbank.foodbankapi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Where;
@@ -21,6 +22,12 @@ public class OrderModel {
 
     @OneToMany(mappedBy = "orderModel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemModel> items = new ArrayList<ItemModel>();
+
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "order")
+    private DeliveryModel delivery;
 
     private String employeeName;
 
