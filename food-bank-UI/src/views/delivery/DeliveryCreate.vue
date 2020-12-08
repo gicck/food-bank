@@ -14,26 +14,21 @@
                   Crear Entrega
                 </h3>
                 <div class="grid grid-cols-6 gap-6">
-                  <!-- <div class="col-span-6">
+                  <div class="col-span-6">
                     <FormulateInput
                       type="text"
-                      name="employeeName"
-                      label="Delegado del Banco"
-                      validation="required"
-                      :validation-messages="{
-                        required: 'Este campo es requerido'
-                      }"
-                      help="Voluntario a cargo de la orden"
+                      name="description"
+                      label="Descripcion"
+                      help="Descripcion de la entrega"
                     />
                   </div>
-
                   <div class="col-span-6">
                     <FormulateInput
                       type="select"
-                      name="entityName"
-                      label="Entidad Beneficiada"
+                      name="orderId"
+                      label="Orden"
                       validation="required"
-                      placeholder="Selecciona una entidad de apoyo"
+                      placeholder="Selecciona una orden"
                       :options="{
                         sanRafael:
                           'Hogar de Ninos San Rafael - 50 beneficiarios',
@@ -66,138 +61,82 @@
                       }"
                       help="Telefono del encargado de la entidad beneficiaria"
                     />
-                  </div> -->
+                  </div>
+                  <div class="col-span-6 sm:col-span-3">
+                    <h3
+                      class="pb-1 text-base font-medium leading-6 text-gray-900"
+                    >
+                      Partida
+                    </h3>
+                    <FormulateInput type="group" name="start">
+                      <FormulateInput
+                        type="text"
+                        name="pickup"
+                        label="Direccion Partida"
+                        validation="required"
+                      />
+                      <FormulateInput
+                        type="datetime-local"
+                        name="time"
+                        label="Hora de partida"
+                        validation="required"
+                      />
+                    </FormulateInput>
+                  </div>
+                  <div class="col-span-6 sm:col-span-3">
+                    <h3
+                      class="pb-1 text-base font-medium leading-6 text-gray-900"
+                    >
+                      Llegada
+                    </h3>
+                    <FormulateInput type="group" name="finish">
+                      <tr>
+                        <td
+                          v-for="recipient in recipients"
+                          v-bind:key="recipient.id"
+                          v-on:click="currentRecipient = recipient"
+                          class="px-4 py-3"
+                        >
+                          <span
+                            class="bg-gray-200 inline-flex py-3 px-5 rounded-lg items-center hover:bg-gray-300 focus:outline-none"
+                            v-bind:class="[
+                              'tab-button',
+                              { active: currentRecipient === recipient }
+                            ]"
+                          >
+                            <span
+                              class="ml-1 items-start flex-col leading-none"
+                            >
+                              <span class="title-font font-medium">{{
+                                recipient.label
+                              }}</span>
+                            </span>
+                          </span>
+                        </td>
+                      </tr>
+
+                      <FormulateInput
+                        type="datetime-local"
+                        name="time"
+                        label="Hora de llegada"
+                        validation="required"
+                      />
+                    </FormulateInput>
+                  </div>
                   <div class="col-span-6">
                     <FormulateInput
-                      type="group"
-                      name="stops"
-                      label="Paradas"
-                      help="Añade las paradas que seran parte de la entrega"
-                      add-label="+ Añadir Parada"
-                      validation="min:1,length"
-                      v-model="stops"
-                      :validation-messages="{
-                        min: 'Se necesita al menos 1 parada'
-                      }"
-                      :repeatable="true"
-                    >
-                      <div class="grid grid-cols-6 gap-6">
-                        <div class="col-span-6 sm:col-span-3">
-                          <FormulateInput
-                            type="text"
-                            name="pickup"
-                            label="Direccion Partida"
-                            validation="required"
-                          />
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                          <FormulateInput
-                            type="text"
-                            name="destination"
-                            label="Direccion Llegada"
-                            validation="required"
-                          />
-                        </div>
-                        <div class="col-span-6">
-                          <FormulateInput
-                            type="datetime-local"
-                            name="pickupTime"
-                            label="Hora Partida"
-                            validation="required"
-                          />
-                        </div>
-                        <div class="col-span-6">
-                          <FormulateInput
-                            type="datetime-local"
-                            name="destinationTime"
-                            label="Hora Partida"
-                            validation="required"
-                          />
-                        </div>
-                        <div class="col-span-6">
-                          <FormulateInput
-                            type="textarea"
-                            name="instructions"
-                            label="Instrucciones"
-                            validation="max:50,length"
-                          />
-                        </div>
-                        <!-- <div class="col-span-6 sm:col-span-3">
-                          <FormulateInput
-                            name="itemType"
-                            type="select"
-                            label="Tipo"
-                            validation="required"
-                            :options="{
-                              CEREALS: 'Cereales y derivados',
-                              VEGETABLES: 'Verduras y legumbres frescas',
-                              FRUITS: 'Frutas frescas',
-                              FAT: 'Aceites y grasas',
-                              LACTOSE: 'Productos lácteos',
-                              MEAT: 'Carnes, pescados y legumbres secas'
-                            }"
-                          />
-                        </div>
-                        <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                          <FormulateInput
-                            name="quantity"
-                            label="Cantidad"
-                            type="number"
-                            min="1"
-                            step="0.01"
-                            validation="required"
-                          />
-                        </div>
-                        <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                          <FormulateInput
-                            name="measureType"
-                            type="select"
-                            label="Tipo"
-                            validation="required"
-                            value="1"
-                            :options="{
-                              Lt: 'Litros',
-                              Kg: 'Kilogramos',
-                              Unit: 'Unidades'
-                            }"
-                          />
-                        </div>
-                        <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                          <FormulateInput
-                            v-if="
-                              items[index] &&
-                                items[index].measureType === 'Unit'
-                            "
-                            name="capacity"
-                            label="Cantidad por unidad"
-                            type="number"
-                            min="0"
-                            step="0.01"
-                            validation="required"
-                            help="Cantidad de la capacidad en Kg/Lt."
-                          />
-                        </div>
-                        <div class="col-span-6">
-                          <FormulateInput
-                            type="textarea"
-                            name="itemDescription"
-                            label="Observaciones"
-                            validation="max:50,length"
-                          />
-                        </div>
-                        <div class="col-span-6">
-                          <p>
-                            Cantidad Total: {{ total(items[index]) }} Kg./Lt.
-                          </p>
-                        </div> -->
-                      </div>
-                    </FormulateInput>
+                      type="textarea"
+                      name="instructions"
+                      label="Instrucciones"
+                      validation="max:50,length"
+                    />
                   </div>
                 </div>
               </div>
               <div class="col-span-6">
-                <FormulateInput type="submit" value="Crear Order" />
+                <FormulateInput type="submit" value="Crear Entrega" />
               </div>
+              <pre>{{ currentRecipient }}</pre>
               <pre>{{ delivery }}</pre>
             </div>
           </FormulateForm>
@@ -208,14 +147,59 @@
 </template>
 
 <script>
+import { dataService } from "../../shared";
+
 export default {
   name: "DeliveryCreate",
   components: {},
   data() {
     return {
       delivery: {},
-      stops: [{}]
+      currentRecipient: {},
+      errors: [],
+      recipients: [],
+      stops: [{}],
+      handleDeliverySubmit: async () => {
+        let realDelivery = {
+          description: this.delivery.description,
+          fromAddress: this.delivery.start[0].pickup,
+          pickupTime: this.delivery.start[0].time,
+          toName: this.delivery.entityEmployeeName,
+          toPhone: this.delivery.entityEmployeePhone,
+          arrivalTime: this.delivery.finish[0].time,
+          instructions: this.delivery.instructions
+        };
+
+        realDelivery.recipient = { id: this.currentRecipient.value };
+        realDelivery.order = { id: 2 };
+
+        console.log(realDelivery);
+
+        const response = await dataService.create("deliveries", realDelivery);
+
+        if (response) {
+          alert(`Entrega añadida.`);
+          this.$formulate.reset("deliveryForm");
+        } else {
+          this.errors.push();
+        }
+      }
     };
+  },
+  async created() {
+    let recipientsResponse = await dataService.getMany("recipients");
+    this.recipients = recipientsResponse.map(recipient => {
+      return {
+        value: recipient.id,
+        label: `${recipient.recipientName} - ${recipient.recipientQuantity}.`
+      };
+    });
   }
 };
 </script>
+<style>
+.tab-button.active {
+  --bg-opacity: 1;
+  background-color: rgba(226, 232, 240, var(--bg-opacity));
+}
+</style>
