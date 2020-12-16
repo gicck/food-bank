@@ -8,7 +8,7 @@ export default (doc, address, startY, fontSize, lineSpacing) => {
   doc.line(startX, startY + lineSpacing / 2, endX, startY + lineSpacing / 2);
 
   //-------Sender Info Address---------------------
-  // doc.setFontSize(fontSize);
+  doc.setFontSize(fontSize);
 
   address = Object.values(address);
   // @todo: more dynamic slice arrays

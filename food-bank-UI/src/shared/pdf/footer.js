@@ -15,7 +15,7 @@ export default (doc, data, fontSize, lineSpacing) => {
   doc.setFont("WorkSans", "italic");
 
   doc.text(
-    '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt."',
+    '"Gracias por el aporte de parte del Banco de Alimentos de Bolivia!!!!."',
     startX,
     startY
   );
