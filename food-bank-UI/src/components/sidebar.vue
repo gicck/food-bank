@@ -11,13 +11,9 @@
       <div>
         <ul class="mt-6">
           <li class="relative px-6 py-3">
-            <span
-              class="absolute inset-y-0 left-0 w-1 bg-indigo-500 rounded-tr-lg rounded-br-lg"
-              aria-hidden="true"
-            ></span>
             <router-link to="/" class="nav-link">
               <a
-                class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800"
+                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
               >
                 <svg
                   class="w-5 h-5"
@@ -190,4 +186,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.router-link-active {
+  --text-opacity: 1;
+  color: #2d3748;
+}
+</style>
