@@ -302,23 +302,20 @@
             validation="max:50,length"
           />
         </div>
+        
       </FormulateInput>
-      <div class="display: flex">
-        <FormulateInput type="submit" value="Guardar" />
-        <button
-          class="px-3 py-1 text-sm ml-2 font-medium leading-5 text-white transition-colors duration-150 bg-gray-600 border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray"
-          @click="cancelOrder()"
-        >
-          <span>Cancelar</span>
-        </button>
+      <div class="grid grid-cols-6 gap-6">
+        <div class="col-span-6 sm:col-span-2">
+          <FormulateInput type="submit" value="Guardar" />
+        </div>
+        <div class="col-span-6 sm:col-span-2"> 
+          <FormulateInput type="button"  label="Cancelar" @click="cancelOrder"/>
+        </div>
+        <div class="col-span-6 sm:col-span-2"> 
+          <FormulateInput type="button" data-danger label="Eliminar" @click="deleteOrder"/>
+        </div>
       </div>
-    </FormulateForm>
-    <button
-      class="px-4 py-2 text-sm mt-2 font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red"
-      @click="deleteOrder()"
-    >
-      <span>Eliminar Orden</span>
-    </button>
+    </FormulateForm>    
   </div>
 </template>
 
@@ -344,7 +341,6 @@ export default {
     };
   },
   async created() {
-    console.log(this.id);
     this.order = await dataService.getOrder(this.id);
   },
   methods: {
