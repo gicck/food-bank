@@ -309,7 +309,7 @@
           <FormulateInput type="submit" value="Guardar" />
         </div>
         <div class="col-span-6 sm:col-span-2"> 
-          <FormulateInput type="button"  label="Cancelar" @click="cancelOrder"/>
+          <FormulateInput type="button" data-gray label="Cancelar" @click="cancelOrder"/>
         </div>
         <div class="col-span-6 sm:col-span-2"> 
           <FormulateInput type="button" data-danger label="Eliminar" @click="deleteOrder"/>

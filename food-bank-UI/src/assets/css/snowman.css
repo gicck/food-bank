@@ -12,8 +12,25 @@
   }
 
 button[data-danger] {
-  background-color: #960505;
-  border-color: #960505; }
+  --bg-opacity: 1;
+  background-color: #e53e3e;
+  background-color: #e53e3e;
+  background-color: rgba(229, 62, 62, var(--bg-opacity)); }
+
+button[data-danger]:hover {
+  --bg-opacity: 1;
+  background-color: #c53030;
+  background-color: rgba(197, 48, 48, var(--bg-opacity));
+}
+  
+button[data-gray] {
+  --bg-opacity: 1;
+  background-color: #718096;
+  border-color: #718096; }
+
+button[data-gray]:hover {
+  --bg-opacity: 1;
+  background-color: #4a5568;}
 
   /* .formulate-input-group-repeatable-remove {
     position: absolute;
